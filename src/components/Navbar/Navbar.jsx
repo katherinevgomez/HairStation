@@ -3,23 +3,30 @@ import {AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography} from "@m
 import {ShoppingCart} from "@material-ui/icons";
 import logo from "../../assets/logo.jpeg";
 import useStyles from "./styles";
+import {Link, useLocation} from "react-router-dom";
 
-function Navbar() {
+function Navbar({totalItems}) {
     const classes = useStyles();
+    const location = useLocation();
+
+  
     return (
         <>
             <AppBar position="fixed" className={classes.AppBar} color="inherit">
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title} color="inherit">
-                        <img src={logo} alt="Hair Station" height="25px" className={classes.image} />
+                    <Typography component={Link} to="/" variant="h6" className={classes.title} color="inherit">
+                        <img src={logo} alt="Hair Station" height="30px" className={classes.image} />
                         Hair Station
                     </Typography>
+                    <div className="cartButton">
                     <div className={classes.grow} />
+                    {location.pathname === "/" && (
                     <div className={classes.button}>
-                        <IconButton aria-label="Show Cart Items" color="inherit">
-                            <Badge badgeContent={2} color="secondary"></Badge>
+                        <IconButton component={Link} to="/cart" className={classes.cart} aria-label="Show Cart Items" color="inherit">
+                            <Badge badgeContent={totalItems} color="secondary"></Badge>
                             <ShoppingCart />
                         </IconButton>
+                        </div> )} 
                     </div>
                 </Toolbar>
             </AppBar>
